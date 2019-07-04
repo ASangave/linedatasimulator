@@ -19,13 +19,13 @@ jobs:
     steps:
       - checkout
       #Install kops and kubectl
-      - kube-orb/install
+      - kubernetes/install
       
       #- run:
       #    name: Auth gCloud SDK
       #    command: bash ../gcloud-auth.sh
 
-      #- kube-orb/create-or-update-resource:
+      #- kubernetes/create-or-update-resource:
       #    resource-file-path: "cloudbuilder-deployment/deployment.yaml"
       #    resource-name: "deployment/cloudbuilder-deployment"
       #    get-rollout-status: true
