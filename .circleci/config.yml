@@ -37,7 +37,8 @@ jobs:
             while [ ! $(kubectl get pods | grep Running) ]; 
               do echo "Waiting for pod to start..."; 
             done
-            echo Hello shell demo > /home/adi.txt
+            kubectl exec cloudbuilder echo Hello shell demo > /home/adi.txt
+            #echo Hello shell demo > /home/adi.txt
       #      if [[ ${CIRCLE_PULL_REQUEST} ]];
       #      then
               ## If it is a PR
