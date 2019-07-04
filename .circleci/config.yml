@@ -26,11 +26,11 @@ jobs:
           name: Auth gCloud SDK
           command: bash gcloud-auth.sh
 
-      #- kubernetes/create-or-update-resource:
-      #    resource-file-path: "cloudbuilder-deployment/deployment.yaml"
-      #    resource-name: "deployment/cloudbuilder-deployment"
-      #    get-rollout-status: true
-      #    show-kubectl-command: true
+      - kubernetes/create-or-update-resource:
+          resource-file-path: "cloudbuilder-deployment/deployment.yaml"
+          resource-name: "deployment/cloudbuilder-deployment"
+          get-rollout-status: true
+          show-kubectl-command: true
       
       #- run: 
       #    name: Run steps inside cloudbuilder
