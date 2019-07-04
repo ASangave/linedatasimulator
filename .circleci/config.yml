@@ -29,7 +29,6 @@ jobs:
       - kubernetes/create-or-update-resource:
           resource-file-path: "cloudbuilder-deployment/deployment.yaml"
           resource-name: "pod/cloudbuilder"
-          get-rollout-status: true
           show-kubectl-command: true
       
       #- run: 
