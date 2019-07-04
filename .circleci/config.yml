@@ -1,16 +1,58 @@
-version: 2
+version: 2.1
+
+#Orbs are packages of CircleCI configuration you use in your builds
+orbs:
+    kubernetes: circleci/kubernetes@0.3.0
+    gcp-gke: circleci/gcp-gke@0.2.0
+
+workflows:
+  build:
+    jobs:
+      - build
+
+#Using Google’s public image (google/cloud-sdk), so no authentication is needed
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: google/cloud-sdk
 
     steps:
       - checkout
+      #Install kops and kubectl
+      - kube-orb/install
+      
+      #- run:
+      #    name: Auth gCloud SDK
+      #    command: bash ../gcloud-auth.sh
 
-      - run:
-          name: Greeting
-          command: echo Hello, world.
+      #- kube-orb/create-or-update-resource:
+      #    resource-file-path: "cloudbuilder-deployment/deployment.yaml"
+      #    resource-name: "deployment/cloudbuilder-deployment"
+      #    get-rollout-status: true
+      #    show-kubectl-command: true
+      
+      #- run: 
+      #    name: Run steps inside cloudbuilder
+      #    command: |
+      #      while [ ! $(kubectl get pods -o cloudbuilder jsonpath="{.status.phase}" | grep Running) ]; 
+      #        do echo "Waiting for pod to start..."; 
+      #      done
 
-      - run:
-          name: Print the Current Time
-          command: date
+      #      if [[ ${CIRCLE_PULL_REQUEST} ]];
+      #      then
+              ## If it is a PR
+      #        apt install -y jq
+              ## Get PR Target Branch
+      #        CIRCLE_TARGET_BRANCH=$(curl -s -u ops:${GITHUB_PERSONAL_ACCESS_TOKEN} https://api.github.com/repos/Juhibhadviya19/${CIRCLE_PROJECT_REPONAME}/pulls/${CIRCLE_PULL_REQUEST##*/} | jq --raw-output '.base.ref')
+      #        echo "PR merge to $CIRCLE_TARGET_BRANCH detected"
+      #        git --version
+      #        git config --global user.email 'ops@sightmachine.com'
+      #        git config --global user.name 'jenkins'
+      #        git fetch origin
+      #        git merge -m "Prospective PR merge" origin/$CIRCLE_TARGET_BRANCH
+      #        echo $"export GIT_COMMIT=\"$(git rev-parse HEAD)\"" >> $BASH_ENV
+      #      else 
+      #        GIT_BRANCH=${CIRCLE_BRANCH}
+      #        echo $"export GIT_COMMIT=\"${CIRCLE_SHA1}\"" >> $BASH_ENV
+      #      fi
+
