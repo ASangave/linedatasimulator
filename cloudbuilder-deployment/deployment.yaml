@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: cloudbuilder-deployment
+  name: cloudbuilder
   labels:
     type: jenkins-slave
 spec:
