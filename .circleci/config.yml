@@ -37,7 +37,11 @@ jobs:
             while [ ! $(kubectl get pods | grep Running) ]; 
               do echo "Waiting for pod to start..."; 
             done
-            kubectl exec cloudbuilder cat /home/adi.txt
+            
+      - run:
+          name: Auth gCloud SDK      
+          command: kubectl exec cloudbuilder cat /home/adi.txt
+            
             #echo Hello shell demo > /home/adi.txt
       #      if [[ ${CIRCLE_PULL_REQUEST} ]];
       #      then
