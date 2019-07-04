@@ -5,16 +5,9 @@ metadata:
   labels:
     type: jenkins-slave
 spec:
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: cloudbuilder
-        image: nginx:1.7.9
-        ports:
-        - containerPort: 80
+  containers:
+    - name: cloudbuilder
+      image: nginx:1.7.9
+      ports:
+      - containerPort: 80
+    
