@@ -2,8 +2,8 @@
 
 set -e
 
-echo ${GOOGLE_AUTH} > /home/aditi/work/sightmachine/velotio-playground-5b92f0621d61.json
-gcloud auth activate-service-account --key-file /home/aditi/work/sightmachine/velotio-playground-5b92f0621d61.json
+echo ${GCLOUD_SERVICE_KEY} > ${HOME}/gcloud-service-key.json
+gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 gcloud --quiet config set project velotio-playground
 gcloud config set compute/zone us-east1-b
 
