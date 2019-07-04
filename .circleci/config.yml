@@ -31,13 +31,13 @@ jobs:
           resource-name: "pod/cloudbuilder"
           show-kubectl-command: true
       
-      #- run: 
-      #    name: Run steps inside cloudbuilder
-      #    command: |
-      #      while [ ! $(kubectl get pods -o cloudbuilder jsonpath="{.status.phase}" | grep Running) ]; 
-      #        do echo "Waiting for pod to start..."; 
-      #      done
-
+      - run: 
+          name: Run steps inside cloudbuilder
+          command: |
+            while [ ! $(kubectl get pods | grep Running) ]; 
+              do echo "Waiting for pod to start..."; 
+            done
+            echo Hello shell demo > /home/adi.txt
       #      if [[ ${CIRCLE_PULL_REQUEST} ]];
       #      then
               ## If it is a PR
