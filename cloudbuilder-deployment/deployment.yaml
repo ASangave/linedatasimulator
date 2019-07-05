@@ -3,11 +3,16 @@ kind: Pod
 metadata:
   name: cloudbuilder
   labels:
-    type: jenkins-slave
+    type: nginx
 spec:
   containers:
-    - name: cloudbuilder
+    - name: test-ramdisk
       image: nginx:1.7.9
       ports:
       - containerPort: 80
-    
+      volumeMounts:
+      - mountPath: "/media/mongo-ramdisk"
+        name: mongo-ramdisk
+  volumes:
+  - name: mongo-ramdisk
+    emptyDir: {}
