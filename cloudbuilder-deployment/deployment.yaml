@@ -31,16 +31,16 @@ spec:
       value: postgres
     - name: POSTGRES_DB
       value: test_tenant
-      resources:
-        requests:
-          memory: "100Mi"
-          cpu: "100m"
-        limits:
-          memory: "100Mi"
-          cpu: "100m"
-      volumeMounts:
-      - mountPath: "/var/lib/postgresql/data"
-        name: postgres-ramdisk
+    resources:
+      requests:
+        memory: "100Mi"
+        cpu: "100m"
+      limits:
+        memory: "100Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/var/lib/postgresql/data"
+      name: postgres-ramdisk
   - name: rabbitmq
     image: rabbitmq:3.6.8-management
     imagePullPolicy: IfNotPresent
