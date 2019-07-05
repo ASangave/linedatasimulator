@@ -1,18 +1,62 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: cloudbuilder
-  labels:
-    type: nginx
+  name: ma-sd-config
 spec:
   containers:
-    - name: test-ramdisk
-      image: nginx:1.7.9
-      ports:
-      - containerPort: 80
+  - name: mongo
+    image: mongo:3.4.9
+    imagePullPolicy: IfNotPresent
+    command:
+    - "mongod"
+    - "--wiredTigerCacheSizeGB"
+    - "0.25"
+    volumeMounts:
+    - mountPath: "/data/db"
+      name: mongo-ramdisk
+    resources:
+      requests:
+        memory: "1500Mi"
+        cpu: "200m"
+      limits:
+        memory: "2000Mi"
+        cpu: "200m"
+  - name: postgres
+    image: postgres:9.5-alpine
+    imagePullPolicy: IfNotPresent
+    env:
+    - name: POSTGRES_USER
+      value: postgres
+    - name: POSTGRES_PASSWORD
+      value: postgres
+    - name: POSTGRES_DB
+      value: test_tenant
+      resources:
+        requests:
+          memory: "100Mi"
+          cpu: "100m"
+        limits:
+          memory: "100Mi"
+          cpu: "100m"
       volumeMounts:
-      - mountPath: "/media/mongo-ramdisk"
-        name: mongo-ramdisk
+      - mountPath: "/var/lib/postgresql/data"
+        name: postgres-ramdisk
+  - name: rabbitmq
+    image: rabbitmq:3.6.8-management
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        memory: "200Mi"
+        cpu: "50m"
+      limits:
+        memory: "200Mi"
+        cpu: "50m"
   volumes:
   - name: mongo-ramdisk
-    emptyDir: {}
+    emptyDir:
+      medium: "Memory"
+      sizeLimit: 500Mi
+  - name: postgres-ramdisk
+    emptyDir:
+      medium: "Memory"
+      sizeLimit: 500Mi
