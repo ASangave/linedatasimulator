@@ -16,11 +16,11 @@ spec:
       name: mongo-ramdisk
     resources:
       requests:
-        memory: "1500Mi"
-        cpu: "200m"
+        memory: "50Mi"
+        cpu: "10m"
       limits:
-        memory: "2000Mi"
-        cpu: "200m"
+        memory: "50Mi"
+        cpu: "10m"
   - name: postgres
     image: postgres:9.5-alpine
     imagePullPolicy: IfNotPresent
@@ -33,11 +33,11 @@ spec:
       value: test_tenant
     resources:
       requests:
-        memory: "100Mi"
-        cpu: "100m"
+        memory: "50Mi"
+        cpu: "10m"
       limits:
-        memory: "100Mi"
-        cpu: "100m"
+        memory: "50Mi"
+        cpu: "10m"
     volumeMounts:
     - mountPath: "/var/lib/postgresql/data"
       name: postgres-ramdisk
@@ -46,17 +46,17 @@ spec:
     imagePullPolicy: IfNotPresent
     resources:
       requests:
-        memory: "200Mi"
-        cpu: "50m"
+        memory: "50Mi"
+        cpu: "10m"
       limits:
-        memory: "200Mi"
-        cpu: "50m"
+        memory: "50Mi"
+        cpu: "10m"
   volumes:
   - name: mongo-ramdisk
     emptyDir:
       medium: "Memory"
-      sizeLimit: 500Mi
+      sizeLimit: 10Mi
   - name: postgres-ramdisk
     emptyDir:
       medium: "Memory"
-      sizeLimit: 500Mi
+      sizeLimit: 10Mi
